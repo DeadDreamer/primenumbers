@@ -87,7 +87,7 @@ void PrintResult(const string& methodName, const vector<int>& performanceMeasure
 
 int main()
 {
-    int max = 1000000, result = 0;
+    int max = 2000000, result = 0;
     vector<int> performanceMeasurements;
 
     PerfMon mon;
@@ -100,7 +100,7 @@ int main()
         performanceMeasurements.push_back(mon.GetMilliseconds());
     }
 
-    PrintResult("Method 1", performanceMeasurements, result);
+    PrintResult("Method 1 - single threaded - ", performanceMeasurements, result);
     performanceMeasurements.clear();
 
     for (int i = 0; i < 5; i++)
@@ -111,7 +111,7 @@ int main()
         performanceMeasurements.push_back(mon.GetMilliseconds());
     }
 
-    PrintResult("Method 2", performanceMeasurements, result);
+    PrintResult("Method 2 - async with launch::async - ", performanceMeasurements, result);
     performanceMeasurements.clear();
 
     for (int i = 0; i < 5; i++)
@@ -122,7 +122,7 @@ int main()
         performanceMeasurements.push_back(mon.GetMilliseconds());
     }
 
-    PrintResult("Method 3", performanceMeasurements, result);
+    PrintResult("Method 3 - multithreaded, packaged tasks and futures - ", performanceMeasurements, result);
     performanceMeasurements.clear();
 
     return 0;
