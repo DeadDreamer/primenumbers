@@ -89,7 +89,7 @@ void PrintResult(const string& methodName, const vector<int>& performanceMeasure
 
 int main()
 {
-    int max = 3000000, result = 0, count = 5;
+    int max = 3000000, result = 0, count = 2;
     vector<int> performanceMeasurements;
 
     PerfMon mon;
