@@ -51,9 +51,10 @@ void PrintResult(const string& methodName, const vector<int>& performanceMeasure
             << " milliseconds" << endl;
 }
 
+// точка входа программы
 int main()
 {
-    int max = 3000000, result = 0, count = 2;
+    int max = 2000000, result = 0, count = 2;
     vector<int> performanceMeasurements;
 
     PerfMon mon;
