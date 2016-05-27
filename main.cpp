@@ -1,4 +1,5 @@
 // библиотеки STL
+
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -6,11 +7,11 @@
 #include <future>
 
 // наши библиотеки
+
 #include "PerfMon.cpp"
 
 using namespace std;
 
-// функция, которая на вход принимает число и возвращает признак, простое оно или нет
 inline bool isPrime(const int& num)
 {
     if (num <= 3)
@@ -29,8 +30,6 @@ inline bool isPrime(const int& num)
     return true;
 }
 
-
-// первый простой метод, перебор в одном потоке, главном потоке программы
 int Method1(const int& min, const int& max)
 {
     int num = 0;
@@ -46,6 +45,15 @@ int Method1(const int& min, const int& max)
     return num;
 }
 
+int Method2(const int& min, const int& max)
+{
+    auto f0 = async(launch::async, Method1, min, min + max / 4);
+    auto f1 = async(launch::async, Method1, min + max / 4, min + max / 2);
+    auto f2 = async(launch::async, Method1, min + max / 2, min + max * 3 / 4);
+    auto f3 = async(launch::async, Method1, min + max * 3 / 4, max);
+
+    return f0.get() + f1.get() + f2.get() + f3.get();
+}
 
 void PrintResult(const string& methodName, const vector<int>& performanceMeasurements, const int& result)
 {
@@ -54,10 +62,9 @@ void PrintResult(const string& methodName, const vector<int>& performanceMeasure
             << " milliseconds" << endl;
 }
 
-// точка входа программы
 int main()
 {
-    int max = 2000000, result = 0, count = 2;
+    int max = 3000000, result = 0, count = 5;
     vector<int> performanceMeasurements;
 
     PerfMon mon;
@@ -73,6 +80,16 @@ int main()
     PrintResult("Method 1 - single threaded - ", performanceMeasurements, result);
     performanceMeasurements.clear();
 
+    for (int i = 0; i < count; i++)
+    {
+        mon.Start();
+        result = Method2(0, max);
+        mon.Stop();
+        performanceMeasurements.push_back(mon.GetMilliseconds());
+    }
+
+    PrintResult("Method 2 - async with launch::async - ", performanceMeasurements, result);
+    performanceMeasurements.clear();
 
     return 0;
 }
