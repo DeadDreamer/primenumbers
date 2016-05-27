@@ -10,6 +10,7 @@
 
 using namespace std;
 
+// функция, которая на вход принимает число и возвращает признак, простое оно или нет
 inline bool isPrime(const int& num)
 {
     if (num <= 3)
@@ -28,6 +29,8 @@ inline bool isPrime(const int& num)
     return true;
 }
 
+
+// первый простой метод, перебор в одном потоке, главном потоке программы
 int Method1(const int& min, const int& max)
 {
     int num = 0;
