@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <future>
+#include <numeric>
 
 // наши библиотеки
 

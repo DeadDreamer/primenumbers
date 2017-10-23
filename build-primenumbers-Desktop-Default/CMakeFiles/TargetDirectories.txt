@@ -1,0 +1,3 @@
+/home/bargan/MailruCloud/dev/primenumbers/build-primenumbers-Desktop-Default/CMakeFiles/rebuild_cache.dir
+/home/bargan/MailruCloud/dev/primenumbers/build-primenumbers-Desktop-Default/CMakeFiles/primenumbers.dir
+/home/bargan/MailruCloud/dev/primenumbers/build-primenumbers-Desktop-Default/CMakeFiles/edit_cache.dir
