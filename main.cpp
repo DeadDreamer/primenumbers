@@ -11,8 +11,6 @@
 
 #include "PerfMon.cpp"
 
-using namespace std;
-
 inline bool isPrime(const int& num)
 {
     if (num <= 3)
@@ -48,25 +46,25 @@ int Method1(const int& min, const int& max)
 
 int Method2(const int& min, const int& max)
 {
-    auto f0 = async(launch::async, Method1, min, min + max / 4);
-    auto f1 = async(launch::async, Method1, min + max / 4, min + max / 2);
-    auto f2 = async(launch::async, Method1, min + max / 2, min + max * 3 / 4);
-    auto f3 = async(launch::async, Method1, min + max * 3 / 4, max);
+    auto f0 = std::async(std::launch::async, Method1, min, min + max / 4);
+    auto f1 = std::async(std::launch::async, Method1, min + max / 4, min + max / 2);
+    auto f2 = std::async(std::launch::async, Method1, min + max / 2, min + max * 3 / 4);
+    auto f3 = std::async(std::launch::async, Method1, min + max * 3 / 4, max);
 
     return f0.get() + f1.get() + f2.get() + f3.get();
 }
 
-void PrintResult(const string& methodName, const vector<int>& performanceMeasurements, const int& result)
+void PrintResult(const std::string& methodName, const std::vector<int>& performanceMeasurements, const int& result)
 {
-    cout << methodName << " primes count: " << result << " - time " <<
+    std::cout << methodName << " primes count: " << result << " - time " <<
             (std::accumulate(performanceMeasurements.begin(), performanceMeasurements.end(), 0.0)) / performanceMeasurements.size()
-            << " milliseconds" << endl;
+            << " milliseconds" << std::endl;
 }
 
 int main()
 {
     int max = 3000000, result = 0, count = 5;
-    vector<int> performanceMeasurements;
+    std::vector<int> performanceMeasurements;
 
     PerfMon mon;
 
